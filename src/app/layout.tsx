@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import PageHeader from '@/components/PageHeader'
 import PageFooter from '@/components/PageFooter'
+import SideBar from '@/components/SideBar'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -22,7 +23,13 @@ export default function RootLayout({
         
         <PageHeader />
         
-        {children}
+          <main className="container-blog grid lg:grid-cols-12 gap-4 xl:gap-6 py-14">
+
+            {children}
+
+            <SideBar />
+
+          </main>
         
         <PageFooter />
 
