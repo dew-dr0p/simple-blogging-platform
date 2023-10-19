@@ -1,7 +1,20 @@
+'use client'
 import BannerImage from '@/components/BannerImage'
 import PostList from '@/components/PostList'
+import usePostStore from '@/store/postStore';
+import { useEffect } from 'react';
 
 const BlogApp = () => {
+    const fetchPosts = usePostStore((state: any) => state.fetchPosts)
+    const posts = usePostStore((state: any) => state.posts)
+    
+    useEffect(() => {
+        // Fetch posts when the component mounts
+        fetchPosts()
+    }, [])
+
+    posts ? console.log(posts) : ''
+
     return (
         <div className='grid gap-6 col-span-8'>
             <BannerImage />
@@ -10,6 +23,7 @@ const BlogApp = () => {
                 <p className='md:text-base text-xs font-medium underline'>See More</p>
             </div>
             <PostList />
+            {/* {JSON.stringify(posts)} */}
         </div>
     );
 }
