@@ -37,8 +37,8 @@ const CreatePostPage = () => {
     function handlleImageUrl(e: any) {
         setImage_Url(e.target.value)
     }
-    function handleContent(e: string) {
-        setContent(e)
+    function handleContent(value: string) {
+        setContent(value)
     }
     function handleCategory(e: any) {
         setCategory((e.target.value).split(','))
@@ -54,7 +54,7 @@ const CreatePostPage = () => {
                     <CreatePostInput label='Image (alt text)' type='text' value={image_alt} onChange={handleImageAlt} />
                 </div>
                 <CreatePostInput label="Post" type="textarea" value={content} onChange={handleContent} />
-                <PostTextEditor initialContent={content} onChange={handleContent} />
+                {/* <PostTextEditor initialContent={content} onChange={handleContent} /> */}
                 <CreatePostInput label='Category' type='text' value={categories} onChange={handleCategory} />
                 <button type='submit' className='bg-primary text-white justify-self-center justify-center py-3 px-6 mt-4 shadow-small text-lg md:text-xl font-bold rounded-md md:rounded-[0.625rem]'>Submit</button>
             </form>
