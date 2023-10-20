@@ -4,6 +4,7 @@ import { Montserrat } from 'next/font/google'
 import PageHeader from '@/components/PageHeader'
 import PageFooter from '@/components/PageFooter'
 import SideBar from '@/components/SideBar'
+import CreatePageIcon from '@/components/CreatePageIcon'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -23,11 +24,13 @@ export default function RootLayout({
         
         <PageHeader />
         
-          <main className="container-blog grid lg:grid-cols-12 gap-4 xl:gap-6 py-14">
+          <main className="container-blog relative grid lg:grid-cols-12 gap-4 xl:gap-6 py-14">
 
             {children}
 
             <SideBar />
+
+            <CreatePageIcon />
 
           </main>
         

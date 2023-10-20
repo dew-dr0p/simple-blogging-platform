@@ -25,23 +25,6 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
           if (!title || (!content && (!photo_url && !categories))) {
             return res.status(400).json({ error: 'Fill in required fields' });
           }
-          // // Create a new post
-          // const newPost = {
-          //     id: '',
-          //     title: title,
-          //     content: content,
-          //     photo_url: photo_url,
-          //     photo_alt_text: alt_text,
-          //     categories: categories,
-          //     created_at: Date.now(),
-          //     updated_at: Date.now()
-          // };
-          
-          // // Push the new post to the database
-          // const snapshot = await ref.push(newPost);
-
-          // // Update the 'key' property in newPost with the actual key
-          // if(snapshot.key) newPost.id = snapshot.key
 
           // Generate a new key using push()
           const snapshot = postsRef.push();
@@ -61,15 +44,18 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
               updated_at: Date.now()
           };
 
-          const newCategories = {
-
-          }
+          // const newCategories = categories
 
           // Push the data to the database
           snapshot.set(newPost, (error) => {
             if (error) {
               return res.status(500).json({ error: 'Failed to add data' });
             } else {
+              // categoriesRef.push(newCategories, (err) => {
+              //   if (err) {
+              //     return res.status(501).json({ error: 'Failed to add category' })
+              //   }
+              // })
               return res.status(201).json({ message: 'Data added successfully', data: newPost });
             }
           });

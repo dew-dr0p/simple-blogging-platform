@@ -5,12 +5,14 @@ const PostCard = ({
         title,
         imageUrl,
         imageAlt,
+        categories,
         postDate,
         postContent,
     }:{
         title: string,
         imageUrl: string,
         imageAlt: string,
+        categories: Array<string>,
         postDate: Date,
         postContent: string
     }) => {
@@ -20,7 +22,6 @@ const PostCard = ({
         temporaryDiv.innerHTML = postContent;
         const plainText = temporaryDiv.innerText;
         const snippet = plainText.slice(0, 100).concat('...')
-        console.log(plainText, snippet)
 
     return (
         <div className="rounded-[0.625rem] bg-white shadow-big">
@@ -38,7 +39,7 @@ const PostCard = ({
             </div>
             <div className="p-3 md:p-4 text-sm md:text-base grid gap-4">
                 <div className="grid gap-1">
-                    <p className="text-primary">In Label</p>
+                    <p className="text-primary">{categories.slice(0, 3).join(', ').concat('...')}</p>
                     <h6 className="font-bold text-xl md:text-2xl">{title}</h6>
                     <p className="font-medium text-grey"><span className="font-bold">By</span> Admin</p>
                 </div>

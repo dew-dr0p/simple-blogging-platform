@@ -12,7 +12,7 @@ const PageHeader = () => {
     return (
         <header className="bg-primary w-full text-white relative">
             <div className="container-blog py-3 grid grid-flow-col justify-between items-center">
-                <h1 className="font-bold text-3xl md:text-4xl">Simple Blog App</h1>
+                <Link href={'/'}><h1 className="font-bold text-3xl md:text-4xl">Simple Blog App</h1></Link>
                 <nav className="lg:flex gap-5 items-center hidden font-semibold">
                     <Link href={'#'}>Nature</Link>
                     <Link href={'#'}>Nature</Link>

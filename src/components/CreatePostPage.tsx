@@ -25,11 +25,11 @@ const CreatePostPage = () => {
             content: content,
             categories: categories
            }).then(() => {
-               setTitle('')
-               setImage_Alt('')
-               setImage_Url('')
-               setContent('')
-               setCategory([])
+            //    handleTitle('')
+            //    handleImageAlt('')
+            //    handleImageUrl('')
+            //    handleContent('')
+            //    handleCategory([])
            }).catch(err => console.log(err))
         } catch(err) {
             console.log(err)
