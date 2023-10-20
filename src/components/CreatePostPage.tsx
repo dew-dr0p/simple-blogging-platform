@@ -2,7 +2,7 @@
 import CreatePostInput from '@/components/CreatePostInput'
 import { createPost } from '@/utils/utils';
 import { FormEvent, useState } from 'react';
-import PostTextEditor from './PostTextEditor';
+import DualModeEditor from './DualModeEditor';
 
 const CreatePostPage = () => {
     const [title, setTitle] = useState('')
@@ -54,7 +54,7 @@ const CreatePostPage = () => {
                     <CreatePostInput label='Image (alt text)' type='text' value={image_alt} onChange={handleImageAlt} />
                 </div>
                 <CreatePostInput label="Post" type="textarea" value={content} onChange={handleContent} />
-                {/* <PostTextEditor initialContent={content} onChange={handleContent} /> */}
+                <DualModeEditor />
                 <CreatePostInput label='Category' type='text' value={categories} onChange={handleCategory} />
                 <button type='submit' className='bg-primary text-white justify-self-center justify-center py-3 px-6 mt-4 shadow-small text-lg md:text-xl font-bold rounded-md md:rounded-[0.625rem]'>Submit</button>
             </form>

@@ -16,7 +16,7 @@ const PostCard = () => {
                     <p className="font-medium text-grey"><span className="font-bold">By</span> Ridho Satriawan</p>
                 </div>
                 <p>Apa itu HTML ? Buat kamu yang pernah membuat sebuah website pastinya sudah tidak asing lagi dengan yang namanya HTML. S…</p>
-                <p className="text-grey font-medium">{date.format(new Date(post.created_at), 'DD MMMM YYYY')}</p>
+                <p className="text-grey font-medium">{date.format(new Date(post?.created_at), 'DD MMMM YYYY')}</p>
             </div>
         </div>
     );
