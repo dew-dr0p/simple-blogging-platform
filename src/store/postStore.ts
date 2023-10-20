@@ -3,6 +3,8 @@ import { create } from "zustand";
 
 const usePostStore = create((set) => ({
     posts: [],
+    currentPage: 1, // Initial Page is 1
+    setCurrentPage: (page: number) => set({ currentPage: page}),
     fetchPosts: async () => {
         try {
             // Use Axios to fetch data from your Firebase API

@@ -1,13 +1,19 @@
 import SectionHeader from '@/components/SectionHeader'
 import PopularPostCard from '@/components/PopularPostCard'
+import usePostStore from '@/store/postStore';
 
 const PopularPostList = () => {
+    const posts = usePostStore((state: any) => state.posts)
+    const me = new Array(5)
+    
+
     return (
         <div className='grid gap-4 h-fit'>
             <SectionHeader Title={'Popular Posts'} />
-            <PopularPostCard />
-            <PopularPostCard />
-            <PopularPostCard />
+            {posts.map((post: any, index: number) => (
+                <PopularPostCard key={index} title={post.title} imageUrl={post.photo_url} imageAlt={post.photo_alt_text} postDate={new Date(post.created_at)} />
+            ))}
+
         </div>
     );
 }

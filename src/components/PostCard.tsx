@@ -5,13 +5,22 @@ const PostCard = ({
         title,
         imageUrl,
         imageAlt,
-        postDate
+        postDate,
+        postContent,
     }:{
         title: string,
         imageUrl: string,
         imageAlt: string,
-        postDate: Date
+        postDate: Date,
+        postContent: string
     }) => {
+
+        // Convert content HTML to plain text
+        const temporaryDiv = document.createElement("div");
+        temporaryDiv.innerHTML = postContent;
+        const plainText = temporaryDiv.innerText;
+        const snippet = plainText.slice(0, 100).concat('...')
+        console.log(plainText, snippet)
 
     return (
         <div className="rounded-[0.625rem] bg-white shadow-big">
@@ -33,8 +42,8 @@ const PostCard = ({
                     <h6 className="font-bold text-xl md:text-2xl">{title}</h6>
                     <p className="font-medium text-grey"><span className="font-bold">By</span> Admin</p>
                 </div>
-                <p>Apa itu HTML ? Buat kamu yang pernah membuat sebuah website pastinya sudah tidak asing lagi dengan yang namanya HTML. S…</p>
-                <p className="text-grey font-medium">{date.format((postDate), 'DD MMMM YYYY')}</p>
+                <p>{snippet}</p>
+                <p className="text-grey font-medium">{date.format(postDate, 'DD MMMM YYYY')}</p>
             </div>
         </div>
     );

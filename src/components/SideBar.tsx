@@ -1,3 +1,4 @@
+'use client'
 import PopularPostList from '@/components/PopularPostList'
 import CategoryList from '@/components/CategoryList'
 

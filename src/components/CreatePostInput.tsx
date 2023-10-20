@@ -1,6 +1,5 @@
 'use client'
 import { ChangeEvent, useState } from "react";
-import PostTextEditor from './PostTextEditor';
 import DualModeEditor from "./DualModeEditor";
 
 const CreatePostInput = ({ label, type, value, onChange }: { label: string, type: string, value: string | Array<string>, onChange(e: any): void }) => {

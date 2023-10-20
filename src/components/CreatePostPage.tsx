@@ -2,7 +2,6 @@
 import CreatePostInput from '@/components/CreatePostInput'
 import { createPost } from '@/utils/utils';
 import { FormEvent, useState } from 'react';
-import DualModeEditor from './DualModeEditor';
 
 const CreatePostPage = () => {
     const [title, setTitle] = useState('')
@@ -37,14 +36,14 @@ const CreatePostPage = () => {
         }
     }
 
-    function handlleTitle(e: any) {
+    function handleTitle(e: any) {
         setTitle(e.target.value)
         // console.log(title)
     }
     function handleImageAlt(e: any) {
         setImage_Alt(e.target.value)
     }
-    function handlleImageUrl(e: any) {
+    function handleImageUrl(e: any) {
         setImage_Url(e.target.value)
     }
     function handleContent(value: string) {
@@ -58,9 +57,9 @@ const CreatePostPage = () => {
         <div className='grid gap-5 col-span-8 h-fit'>
             <h2 className="text-2xl md:text-3xl font-bold">Mengenal Apa Itu HTML ?</h2>
             <form onSubmit={handleSubmit} className="grid gap-6">
-                <CreatePostInput label="Title" type="text" value={title} onChange={handlleTitle} />
+                <CreatePostInput label="Title" type="text" value={title} onChange={handleTitle} />
                 <div className='grid grid-flow-col gap-5'>
-                    <CreatePostInput label='Image (url)' type='text' value={image_url} onChange={handlleImageUrl} />
+                    <CreatePostInput label='Image (url)' type='text' value={image_url} onChange={handleImageUrl} />
                     <CreatePostInput label='Image (alt text)' type='text' value={image_alt} onChange={handleImageAlt} />
                 </div>
                 <CreatePostInput label="Post" type="textarea" value={content} onChange={handleContent} />

@@ -24,7 +24,7 @@ const BlogApp = () => {
                 <h3 className='font-bold text-sm md:text-xl'>Recent Posts</h3>
                 <p className='md:text-base text-xs font-medium underline'>See More</p>
             </div>
-            <PostList />
+            {posts && <PostList />}
             {/* {JSON.stringify(posts)} */}
         </div>
     );
