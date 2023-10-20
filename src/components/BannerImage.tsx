@@ -1,16 +1,30 @@
-// 'use client'
-import usePostStore from "@/store/postStore";
+import Image from "next/image";
 
-const BannerImage = () => {
-    // const posts = usePostStore((state: any) => state.posts)
-    // console.log(posts)
+const BannerImage = ({
+        imageUrl,
+        imageAlt,
+        title
+    }:{
+        imageUrl: string
+        imageAlt: string
+        title: string
+    }) => {
 
     return (
-        <div className="bg-[#D9D9D9] shadow-big grid p-5 items-end min-h-[396px] rounded-[0.625rem]">
-            <div className="grid text-sm md:text-base">
-                <p>In Label</p>
-                <h3 className="md:text-3xl text-2xl font-bold">Ini Adalah Judul Artikel</h3>
-                <p className="font-medium"><span className="font-bold">By</span> Ridho Satriawan</p>
+        <div className="bg-[#D9D9D9] shadow-big grid items-end min-h-[396px] relative rounded-[0.625rem]">
+            <Image
+                src={imageUrl}
+                alt={imageAlt}
+                fill={true}
+                style={{
+                    borderRadius: 10
+                }}
+                priority={true}
+            ></Image>
+            <div className="grid gap-1 p-5 text-sm md:text-base relative z-10 text-white bg-white bg-opacity-20 bg-blend-screen ">
+                <p className="text-primary">In Label</p>
+                <h3 className="md:text-3xl text-2xl font-bold">{title}</h3>
+                <p className="font-medium text-black"><span className="font-bold">By</span> Ridho Satriawan</p>
             </div>
         </div>
     );

@@ -13,7 +13,11 @@ const CreatePostPage = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e?.preventDefault()
-        console.log(title, image_url, image_alt, content, categories)
+        console.log(title)
+        console.log(image_url)
+        console.log(image_alt)
+        console.log(content)
+        console.log(categories)
         try {
            createPost({
             title: title,
@@ -21,7 +25,13 @@ const CreatePostPage = () => {
             alt_text: image_alt,
             content: content,
             categories: categories
-           })
+           }).then(() => {
+               setTitle('')
+               setImage_Alt('')
+               setImage_Url('')
+               setContent('')
+               setCategory([])
+           }).catch(err => console.log(err))
         } catch(err) {
             console.log(err)
         }
@@ -29,7 +39,7 @@ const CreatePostPage = () => {
 
     function handlleTitle(e: any) {
         setTitle(e.target.value)
-        console.log(title)
+        // console.log(title)
     }
     function handleImageAlt(e: any) {
         setImage_Alt(e.target.value)
@@ -41,7 +51,7 @@ const CreatePostPage = () => {
         setContent(value)
     }
     function handleCategory(e: any) {
-        setCategory((e.target.value).split(','))
+        setCategory((e.target.value).split(', '))
     }
 
     return (
@@ -54,7 +64,6 @@ const CreatePostPage = () => {
                     <CreatePostInput label='Image (alt text)' type='text' value={image_alt} onChange={handleImageAlt} />
                 </div>
                 <CreatePostInput label="Post" type="textarea" value={content} onChange={handleContent} />
-                <DualModeEditor />
                 <CreatePostInput label='Category' type='text' value={categories} onChange={handleCategory} />
                 <button type='submit' className='bg-primary text-white justify-self-center justify-center py-3 px-6 mt-4 shadow-small text-lg md:text-xl font-bold rounded-md md:rounded-[0.625rem]'>Submit</button>
             </form>

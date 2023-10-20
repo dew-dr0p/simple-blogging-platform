@@ -27,6 +27,7 @@ const createPost = async (data: object) => {
         .catch(err => console.log(err.response))
     } catch(err) {
         console.log(err)
+        throw Error
     }
 }
 

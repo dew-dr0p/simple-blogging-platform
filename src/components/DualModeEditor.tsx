@@ -51,14 +51,14 @@ Quill.register('modules/customSelect', function(quill: any) {
 
 });
 
-function DualModeEditor() {
-  const [htmlMode, setHtmlMode] = useState(false);
-  const [content, setContent] = useState('');
+function DualModeEditor({initialContent, onChange}: {initialContent: string, onChange: (content: string) => void}) {
   const quillRef = useRef(null);
+  const [content, setContent] = useState(initialContent);
 
-  const handleToggleMode = () => {
-    setHtmlMode(!htmlMode);
-  };
+  const handleContentChange = (value: string) => {
+    setContent(value)
+    onChange(value)
+}
 
   const modules = {
     toolbar: {
@@ -100,7 +100,7 @@ function DualModeEditor() {
     //   )}
     // </div>
     <div>
-      <ReactQuill ref={quillRef} value={content} onChange={setContent} modules={modules} formats={formats} />
+      <ReactQuill ref={quillRef} value={content} onChange={handleContentChange} modules={modules} formats={formats} />
     </div>
   );
 }
