@@ -1,7 +1,7 @@
 import admin from 'firebase-admin';
 
 // Load the service account key path from environment variables
-const serviceAccountKeyPath = process.env.FIREBASE_KEYFILE;
+const serviceAccountKeyPath = JSON.parse(process.env.FIREBASE_KEYFILE as string);
 
 // Check if the environment variable is defined
 if (serviceAccountKeyPath) {
