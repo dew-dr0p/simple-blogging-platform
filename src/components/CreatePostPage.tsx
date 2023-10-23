@@ -9,7 +9,7 @@ const CreatePostPage = () => {
     const searchParams = useSearchParams()
     const router = useRouter()
     const postId = searchParams.get('id')
-    console.log(postId)
+    postId ? console.log(postId) : ''
 
     const fetchPost = usePostStore((state: any) => state.fetchPost)
     const selectedPost = usePostStore((state: any) => state.selectedPost)
@@ -78,7 +78,9 @@ const CreatePostPage = () => {
         setImage_Url(e.target.value)
     }
     function handleContent(value: string) {
+        console.log('Before: ', content)
         setContent(value)
+        console.log('After: ', content)
     }
     function handleCategory(e: any) {
         setCategory((e.target.value).split(', '))
@@ -98,6 +100,15 @@ const CreatePostPage = () => {
         setCategory(selectedPost.categories)
     }, [selectedPost])
 
+    console.log(content)
+    console.log(categories)
+    console.log(title)
+    console.log(image_alt)
+    console.log(image_url)
+    useEffect(() => {
+        console.log(content)
+    }, [content])
+
     return (
         <div className='grid gap-5 col-span-8 h-fit'>
             <h2 className="text-2xl md:text-3xl font-bold">Create your post today</h2>
@@ -107,7 +118,7 @@ const CreatePostPage = () => {
                     <CreatePostInput label='Image (url)' type='text' value={image_url} placeholder='Enter link to Image resource' onChange={handleImageUrl} />
                     <CreatePostInput label='Image (alt text)' type='text' value={image_alt} placeholder='Enter Alternate text for Image' onChange={handleImageAlt} />
                 </div>
-                <CreatePostInput label="Post" type="textarea" value={content} onChange={handleContent} />
+                <CreatePostInput label="Post" type="textarea" postValue={content} onChange={handleContent} />
                 <CreatePostInput label='Category' type='text' value={categories} placeholder='Seperate values with a comma ", "' onChange={handleCategory} />
                 <button type='submit' className='bg-primary text-white justify-self-center justify-center py-3 px-6 mt-4 shadow-small text-lg md:text-xl font-bold rounded-md md:rounded-[0.625rem]'>Submit</button>
             </form>

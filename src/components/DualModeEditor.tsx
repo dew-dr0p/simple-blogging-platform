@@ -142,7 +142,7 @@ function DualModeEditor({initialContent, onChange}: {initialContent: string, onC
 
   return (
     <div>
-      <ReactQuill value={initialContent} placeholder='Let your creativity kick in. Write a post.' onChange={handleContentChange} modules={modules} formats={formats} />
+      {(typeof document !== 'undefined' && typeof window !== 'undefined') && <ReactQuill value={initialContent} placeholder='Let your creativity kick in. Write a post.' onChange={handleContentChange} modules={modules} formats={formats} />}
     </div>
   );
 }

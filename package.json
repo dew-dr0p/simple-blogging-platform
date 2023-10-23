@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^6.1.0",
     "axios": "^1.5.1",
+    "ckeditor5-custom-build": "file:ckeditor5",
     "date-and-time": "^3.0.3",
     "dompurify": "^3.0.6",
     "firebase-admin": "^11.11.0",

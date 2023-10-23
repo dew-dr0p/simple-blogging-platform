@@ -1,3 +1,4 @@
+import { headers, cookies } from 'next/headers';
 import PostDetailPage from '@/components/PostDetailPage'
 import axios from 'axios';
 
@@ -18,7 +19,21 @@ import axios from 'axios';
 // }
 
 async function generateAllSlugs() {
-    const posts = await axios.get('http://localhost:3000/api/blogPost').then((response) => {
+    // Tip: If you don't have access to the NextRequest, you can get the request host from next/headers
+    const h = { cookie: cookies().toString() };
+
+    // Check if you are running in a development environment
+    const isDevelopment = process.env.NODE_ENV === 'development';
+
+    // Define the base URL for your API
+    let baseURL = '';
+
+    if (isDevelopment) {
+        baseURL = 'http://localhost:3000'; // Default to a local development server URL
+    } else {
+        baseURL = `https://${headers().get('Host')}`; // Default to your production server URL
+    }
+    const posts = await axios.get(`${baseURL}/api/blogPost`, { headers: h }).then((response) => {
         // Transform the data into an array of posts
         const transformedData = Object.keys(response.data).map((key) => ({
             id: key,
