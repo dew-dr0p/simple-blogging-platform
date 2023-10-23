@@ -107,7 +107,7 @@ const CreatePostPage = () => {
                     <CreatePostInput label='Image (url)' type='text' value={image_url} placeholder='Enter link to Image resource' onChange={handleImageUrl} />
                     <CreatePostInput label='Image (alt text)' type='text' value={image_alt} placeholder='Enter Alternate text for Image' onChange={handleImageAlt} />
                 </div>
-                <CreatePostInput label="Post" type="textarea" postValue={content} onChange={handleContent} />
+                <CreatePostInput label="Post" type="textarea" value={content} onChange={handleContent} />
                 <CreatePostInput label='Category' type='text' value={categories} placeholder='Seperate values with a comma ", "' onChange={handleCategory} />
                 <button type='submit' className='bg-primary text-white justify-self-center justify-center py-3 px-6 mt-4 shadow-small text-lg md:text-xl font-bold rounded-md md:rounded-[0.625rem]'>Submit</button>
             </form>

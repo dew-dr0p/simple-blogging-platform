@@ -1,7 +1,7 @@
 import axios from "axios"
 import path from "path"
 
-const baseURL = `${window.location.origin}/api/blogPost`
+const baseURL = typeof window !== 'undefined' ? `${window.location.origin}/api/blogPost` : ''
 // const appId = '652066992e0305cb50c526de'
 
 
