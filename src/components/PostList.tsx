@@ -1,3 +1,4 @@
+'use client'
 import PostCard from '@/components/PostCard'
 import usePostStore from '@/store/postStore';
 
@@ -10,11 +11,11 @@ const PostList = ({
 }) => {
     const posts = usePostStore((state: any) => state.posts)
 
-    const displayedPosts = posts.slice(start, end);
+    const displayedPosts = posts?.slice(start, end);
 
     return (
         <div className='grid md:grid-cols-2 gap-6'>
-            {posts && displayedPosts.map((post: any, index: number) => (
+            {displayedPosts.map((post: any, index: number) => (
                 <PostCard key={index} id={post.id} title={post.title} imageUrl={post.photo_url} imageAlt={post.photo_alt_text} postDate={new Date(post.created_at)} postContent={post.content} categories={post.categories} />
             ))}
         </div>

@@ -1,7 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import admin from './initialiseFirebase'
-import { useStore } from 'zustand';
-import usePostStore from '@/store/postStore';
 
 const handler = async (req: VercelRequest, res: VercelResponse) => {
   try {
@@ -15,7 +13,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
     if (req.method === 'GET') {
       // Retrieve data from Realtime Database
       console.log('getting...', req.method)
-      if (postId) {
+      if (postId && postId !== '') {
         // Fetch a specific post
         // const postRef = db.ref('posts/' + postId)
 

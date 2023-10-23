@@ -35,7 +35,7 @@ const usePostStore = create((set) => ({
             console.error('Error fetching post: ', error)
         }
     },
-    addPosts: (data: any) => set((state: any) => ({ posts: [data, ...state.posts] })),
+    // addPosts: (data: any) => set((state: any) => ({ posts: [data, ...state.posts] })),
     // deletePost: (postId: any) => set((state: any) => ({ posts: state.posts.filter((e: any) => postId !== e.id )}))
     deletePost: async (postId: string) => {
         try {

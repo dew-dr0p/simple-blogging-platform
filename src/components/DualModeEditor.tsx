@@ -1,61 +1,69 @@
-import React, { useRef, useState } from 'react';
-import ReactQuill from 'react-quill';
+'use client'
+import React, { useEffect, useRef } from 'react';
+// import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Quill from 'quill'; // Import the quill module
 import DOMPurify from 'dompurify';
+import dynamic from 'next/dynamic';
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 function DualModeEditor({initialContent, onChange}: {initialContent: string, onChange: (content: string) => void}) {
   
-  Quill.register('modules/customSelect', function(quill: any) {
-    const toolbar = quill.getModule('toolbar');
-  
-    // Create a new select element and populate it with options
-    const select = document.createElement('select');
-    select.innerHTML = `<option value="text">Text</option>
-                        <option value="html">HTML</option>`;
+  useEffect(() => {
+    Quill.register('modules/customSelect', function(quill: any) {
+      const toolbar = quill.getModule('toolbar');
     
-    // Create a new span to act as the container and add Quill classes
-    var container = document.createElement('span');
-    container.className = 'ql-formats';
+      // Create a new select element and populate it with options
+      const select = document.createElement('select');
+      select.innerHTML = `<option value="text">Text</option>
+                          <option value="html">HTML</option>`;
+      
+      // Create a new span to act as the container and add Quill classes
+      if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+        const container = document.createElement('span');
+        container.className = 'ql-formats';
+        
+        // Append the select element to the span container
+        container.appendChild(select);
+      
+        // Append the container to the toolbar
+        toolbar.container.appendChild(container);
+      }
     
-    // Append the select element to the span container
-    container.appendChild(select);
-  
-    // Append the container to the toolbar
-    toolbar.container.appendChild(container);
-  
-    // Initialize a variable to store the HTML content
-    let originalHtmlContent = quill.root.innerHTML;
-  
-  
-    select.addEventListener('change', function() {
-      let format = select.value;
-  
-      if (format === "text") {
-        // Convert HTML to plain text
-        let temporaryDiv = document.createElement("div");
-        temporaryDiv.innerHTML = quill.root.innerHTML;
-        let plainText = temporaryDiv.innerText;
-  
-        // Save the current HTML content, but sanitize it first
-        originalHtmlContent = DOMPurify.sanitize(quill.root.innerHTML);
-  
-  
-        // Clear the editor and insert as plain text
-        quill.setContents([]);
-        quill.clipboard.dangerouslyPasteHTML(plainText); 
-      }
-  
-      if (format === "html") {
-        // Restore the original HTML content
-        quill.setContents([]);
-        quill.clipboard.dangerouslyPasteHTML(DOMPurify.sanitize(originalHtmlContent), 'html')
-      }
+      // Initialize a variable to store the HTML content
+      let originalHtmlContent = quill.root.innerHTML;
+    
+    
+      select.addEventListener('change', function() {
+        let format = select.value;
+    
+        if (format === "text") {
+          // Convert HTML to plain text
+          let temporaryDiv = document.createElement("div");
+          temporaryDiv.innerHTML = quill.root.innerHTML;
+          let plainText = temporaryDiv.innerText;
+    
+          // Save the current HTML content, but sanitize it first
+          originalHtmlContent = DOMPurify.sanitize(quill.root.innerHTML);
+    
+    
+          // Clear the editor and insert as plain text
+          quill.setContents([]);
+          quill.clipboard.dangerouslyPasteHTML(plainText); 
+        }
+    
+        if (format === "html") {
+          // Restore the original HTML content
+          quill.setContents([]);
+          quill.clipboard.dangerouslyPasteHTML(DOMPurify.sanitize(originalHtmlContent), 'html')
+        }
+      });
+    
     });
-  
-  });
+  }, [])
 
-  const quillRef = useRef<ReactQuill | null>(null);
+  // const quillRef = useRef<ReactQuill | null>(null);
 
   // useEffect(() => {
   //   if (quillRef.current) {
@@ -134,7 +142,7 @@ function DualModeEditor({initialContent, onChange}: {initialContent: string, onC
 
   return (
     <div>
-      <ReactQuill ref={quillRef} value={initialContent} placeholder='Let your creativity kick in. Write a post.' onChange={handleContentChange} modules={modules} formats={formats} />
+      <ReactQuill value={initialContent} placeholder='Let your creativity kick in. Write a post.' onChange={handleContentChange} modules={modules} formats={formats} />
     </div>
   );
 }

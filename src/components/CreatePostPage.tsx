@@ -1,19 +1,21 @@
 'use client'
 import CreatePostInput from '@/components/CreatePostInput'
 import { createPost, editPost } from '@/utils/utils';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import usePostStore from '@/store/postStore';
-import path from 'path';
-
 
 const CreatePostPage = () => {
     const searchParams = useSearchParams()
+    const router = useRouter()
     const postId = searchParams.get('id')
-    console.log(postId, path)
+    console.log(postId)
 
     const fetchPost = usePostStore((state: any) => state.fetchPost)
     const selectedPost = usePostStore((state: any) => state.selectedPost)
+
+    // Generate slug from title
+    const slug = selectedPost.title?.replaceAll(' ', '_').replaceAll(':', '').toLowerCase()
 
     const [title, setTitle] = useState('')
     const [image_url, setImage_Url] = useState('')
@@ -44,6 +46,7 @@ const CreatePostPage = () => {
                     setImage_Url('')
                     setContent('')
                     setCategory([])
+                    router.push(`${slug}`)
                 }).catch(err => console.log(err))
             } else {
                 createPost({
