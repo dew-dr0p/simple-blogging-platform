@@ -1,18 +1,54 @@
+'use client'
+import usePostStore from "@/store/postStore";
+import date from 'date-and-time'
+import DOMPurify from "dompurify";
+import { useRouter } from "next/navigation";
+
 const PostDetailPage = () => {
+    const router = useRouter()
+
+    const selectedPost = usePostStore((state: any) => state.selectedPost)
+    const deletePost = usePostStore((state: any) => state.deletePost)
+    console.log(selectedPost.content)
+
+    const isEdited = selectedPost.updated_at > selectedPost.created_at
+    const postDate = isEdited ? selectedPost.updated_at : selectedPost.created_at
+
+    // dangerouslyPasteHTML()
+
+    const handleDeleteClick = () => {
+        alert("You're about to delete a post")
+        deletePost(selectedPost.id)
+    }
+
+    const handleEditClick = () => {
+        router.push(`create?id=${selectedPost.id}`)
+    }
+
     return (
         <div className='grid gap-5 col-span-8'>
             <div className="bg-primary text-white grid items-center p-4 md:p-3 py-2 md:py-3 text-sm md:text-base rounded-md md:rounded-[0.625rem] h-fit">
-                <p>Home &gt; html &gt; Apa Itu HTML ?</p>
+                <p>Home &gt; Posts &gt; {selectedPost.title}</p>
             </div>
             <div className="grid gap-2.5">
-                <h2 className="text-2xl md:text-3xl font-bold">Mengenal Apa Itu HTML ?</h2>
+                <h2 className="text-2xl md:text-3xl font-bold flex gap-4">{selectedPost.title} 
+                    <span className="float-right flex gap-2">
+                        <div onClick={handleEditClick} className="cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+                        </div>
+                        <div onClick={handleDeleteClick} className="cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                        </div>
+                    </span></h2>
                 <div className="flex flex-col md:flex-row gap-px md:gap-5 text-grey">
                     <p><span className="font-bold">By</span> Ridho Satriawan</p>
-                    <p>22 Agustus 2022</p>
+                    <p>{date.format(new Date(postDate), 'DD MMMM YYYY')} {isEdited ? '(edited)' : ''}</p>
                 </div>
             </div>
 
-            <p className='grid text-sm md:text-base marker:text-xl'>
+            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(selectedPost.content)}} className="grid gap-4"></div>
+
+            {/* <p className='grid text-sm md:text-base marker:text-xl'>
                 <span className='text-xl md:text-2xl font-bold'>
                     Apa itu HTML ?
                 </span>
@@ -56,7 +92,7 @@ const PostDetailPage = () => {
 
                 <h2>Conclusion</h2>
                 <p>As AI technologies become more deeply integrated into our daily lives, we need to be more discerning consumers and vigilant citizens. Ethical AI is not a far-off ideal; it is an imperative that needs to be part of ongoing discussions.</p>
-            </p>
+            </p> */}
         </div>
     );
 }

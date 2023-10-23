@@ -56,7 +56,6 @@ function DualModeEditor({initialContent, onChange}: {initialContent: string, onC
   });
 
   const quillRef = useRef<ReactQuill | null>(null);
-  const [content, setContent] = useState(initialContent);
 
   // useEffect(() => {
   //   if (quillRef.current) {
@@ -107,7 +106,6 @@ function DualModeEditor({initialContent, onChange}: {initialContent: string, onC
   // }, [quillRef]);
 
   const handleContentChange = (value: string) => {
-    setContent(value)
     onChange(value)
 }
 
@@ -136,7 +134,7 @@ function DualModeEditor({initialContent, onChange}: {initialContent: string, onC
 
   return (
     <div>
-      <ReactQuill ref={quillRef} value={content} onChange={handleContentChange} modules={modules} formats={formats} />
+      <ReactQuill ref={quillRef} value={initialContent} placeholder='Let your creativity kick in. Write a post.' onChange={handleContentChange} modules={modules} formats={formats} />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import axios from "axios"
+import path from "path"
 
 const baseURL = 'http://localhost:3000/api/blogPost'
 // const appId = '652066992e0305cb50c526de'
@@ -31,7 +32,20 @@ const createPost = async (data: object) => {
     }
 }
 
+const editPost = async (data: object) => {
+    console.log(path)
+    try {
+        axios.put(`${baseURL}`, data)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    } catch (error) {
+        console.log(error)
+        throw Error
+    }
+}
+
 export {
     fetchPosts,
-    createPost
+    createPost,
+    editPost
 }

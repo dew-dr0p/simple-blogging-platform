@@ -1,6 +1,7 @@
 import PostDetailPage from '@/components/PostDetailPage'
 
-const DetailPage = () => {
+const DetailPage = ({ params }:{ params: { slug: string }}) => {
+    console.log(params.slug)
     return (
         <PostDetailPage />
     );

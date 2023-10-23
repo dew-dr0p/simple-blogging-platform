@@ -15,7 +15,7 @@ const PostList = ({
     return (
         <div className='grid md:grid-cols-2 gap-6'>
             {posts && displayedPosts.map((post: any, index: number) => (
-                <PostCard key={index} title={post.title} imageUrl={post.photo_url} imageAlt={post.photo_alt_text} postDate={new Date(post.created_at)} postContent={post.content} categories={post.categories} />
+                <PostCard key={index} id={post.id} title={post.title} imageUrl={post.photo_url} imageAlt={post.photo_alt_text} postDate={new Date(post.created_at)} postContent={post.content} categories={post.categories} />
             ))}
         </div>
     );

@@ -1,7 +1,10 @@
 import Image from "next/image";
 import date from 'date-and-time'
+import Link from "next/link";
+import usePostStore from "@/store/postStore";
 
 const PostCard = ({
+        id,
         title,
         imageUrl,
         imageAlt,
@@ -9,6 +12,7 @@ const PostCard = ({
         postDate,
         postContent,
     }:{
+        id: string
         title: string,
         imageUrl: string,
         imageAlt: string,
@@ -16,6 +20,8 @@ const PostCard = ({
         postDate: Date,
         postContent: string
     }) => {
+        const fetchPost = usePostStore((state: any) => state.fetchPost)
+        const selectedPost = usePostStore((state: any) => state.selectedPost)
 
         // Convert content HTML to plain text
         const temporaryDiv = document.createElement("div");
@@ -23,8 +29,17 @@ const PostCard = ({
         const plainText = temporaryDiv.innerText;
         const snippet = plainText.slice(0, 100).concat('...')
 
+        // Generate slug from title
+        const slug = title.replaceAll(' ', '_').replaceAll(':', '').toLowerCase()
+        // console.log(slug)
+
+        const handlePostClick = () => {
+            fetchPost(id)
+            console.log(selectedPost)
+        }
+
     return (
-        <div className="rounded-[0.625rem] bg-white shadow-big">
+        <Link href={`/posts/${slug}`} onClick={handlePostClick} className="rounded-[0.625rem] bg-white shadow-big">
             <div className="bg-[#D9D9D9] rounded-[0.625rem] relative h-48">
                 {/* <img src={imageUrl} alt={imageAlt} /> */}
                 <Image
@@ -46,7 +61,7 @@ const PostCard = ({
                 <p>{snippet}</p>
                 <p className="text-grey font-medium">{date.format(postDate, 'DD MMMM YYYY')}</p>
             </div>
-        </div>
+        </Link>
     );
 }
 

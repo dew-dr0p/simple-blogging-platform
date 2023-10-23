@@ -3,6 +3,7 @@ import { create } from "zustand";
 
 const usePostStore = create((set) => ({
     posts: [],
+    selectedPost: {},
     currentPage: 1, // Initial Page is 1
     setCurrentPage: (page: number) => set({ currentPage: page}),
     fetchPosts: async () => {
@@ -23,8 +24,28 @@ const usePostStore = create((set) => ({
             console.error('Error fetching posts:', error)
         }
     },
+    fetchPost: async (postId: string) => {
+        try {
+            // Use Axios to fetch post from Firebase
+            const response = await axios.get(`/api/blogPost?id=${postId}`)
+            console.log(response.data)
+
+            set({ selectedPost: response.data })
+        } catch (error) {
+            console.error('Error fetching post: ', error)
+        }
+    },
     addPosts: (data: any) => set((state: any) => ({ posts: [data, ...state.posts] })),
-    deletePost: (postId: any) => set((state: any) => ({ posts: state.posts.filter((e: any) => postId !== e.id )}))
+    // deletePost: (postId: any) => set((state: any) => ({ posts: state.posts.filter((e: any) => postId !== e.id )}))
+    deletePost: async (postId: string) => {
+        try {
+            // Use Axios to delete post from Firebase
+            const response = await axios.delete(`/api/blogPost?id=${postId}`)
+            console.log(response)
+        } catch (error) {
+            console.error('Error deleting post: ', error)
+        }
+    }
 }))
 
 export default usePostStore

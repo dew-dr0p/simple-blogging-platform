@@ -18,7 +18,7 @@ const BlogApp = () => {
         // Fetch posts when the component mounts
         fetchPosts()
         console.log('effect ran')
-    }, [])
+    }, [fetchPosts])
 
     const postsPerPage = 10; // Number of posts per page
     const startIndex = (currentPage - 1) * postsPerPage;
