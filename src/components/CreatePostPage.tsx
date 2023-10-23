@@ -78,9 +78,7 @@ const CreatePostPage = () => {
         setImage_Url(e.target.value)
     }
     function handleContent(value: string) {
-        console.log('Before: ', content)
         setContent(value)
-        console.log('After: ', content)
     }
     function handleCategory(e: any) {
         setCategory((e.target.value).split(', '))
@@ -99,15 +97,6 @@ const CreatePostPage = () => {
         setContent(selectedPost.content)
         setCategory(selectedPost.categories)
     }, [selectedPost])
-
-    console.log(content)
-    console.log(categories)
-    console.log(title)
-    console.log(image_alt)
-    console.log(image_url)
-    useEffect(() => {
-        console.log(content)
-    }, [content])
 
     return (
         <div className='grid gap-5 col-span-8 h-fit'>

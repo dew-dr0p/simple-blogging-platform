@@ -2,10 +2,12 @@ import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 
 const NewPostEditorCK = ({initialContent, onChange}: {initialContent?: string, onChange: (content: string) => void}) => {
-    const handleContentChange = (event: string, data: string) => {
-        console.log('Before: ', initialContent)
-        event === 'change:data' ? onChange(data) : ''
-        console.log('After: ', initialContent)
+    if (typeof window === 'undefined') {
+        return null
+    }
+
+    const handleContentChange = (data: string) => {
+        onChange(data)
     }
 
     return (
@@ -20,7 +22,7 @@ const NewPostEditorCK = ({initialContent, onChange}: {initialContent?: string, o
                 // } }
                 onChange={(event, editor ) => {
                     const data = editor.getData()
-                    handleContentChange(event.name, data)
+                    handleContentChange(data)
                     // onChange(data)
                     console.log( { event, editor, data } );
                 } }
