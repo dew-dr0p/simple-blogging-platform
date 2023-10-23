@@ -1,13 +1,13 @@
 import admin from 'firebase-admin';
 
 // Load the service account key path from environment variables
-const serviceAccountKeyPath = JSON.parse(process.env.FIREBASE_KEYFILE as string);
+const serviceAccountKey = JSON.parse(process.env.FIREBASE_KEYFILE as string);
 
 // Check if the environment variable is defined
-if (serviceAccountKeyPath) {
+if (serviceAccountKey) {
   // Initialize Firebase Admin SDK with the service account key
   admin.initializeApp({
-    credential: admin.credential.cert(require(serviceAccountKeyPath)),
+    credential: admin.credential.cert(serviceAccountKey),
     databaseURL: 'https://simple-blogging-platform-default-rtdb.firebaseio.com',
   });
   // // Get a reference to your Firebase Realtime Database
