@@ -1,5 +1,6 @@
 import Image from "next/image";
 import date from 'date-and-time'
+import Link from "next/link";
 
 const PopularPostCard = ({
         title,
@@ -13,8 +14,11 @@ const PopularPostCard = ({
         postDate: Date
     }) => {
 
+        // Generate slug from title
+        const slug = title?.replaceAll(' ', '_').replaceAll(':', '').toLowerCase()
+
     return (
-        <div className="rounded-[0.625rem] shadow-small p-3 grid grid-cols-5 gap-3 bg-white">
+        <Link href={`/posts/${slug}`} className="rounded-[0.625rem] shadow-small p-3 grid grid-cols-5 gap-3 bg-white">
             <div className="rounded-[0.625rem] bg-[#D9D9D9] relative h-full col-span-2">
                 <Image
                     src={imageUrl}
@@ -30,7 +34,7 @@ const PopularPostCard = ({
                 <h6 className="font-bold text-sm">{title}</h6>
                 <p className="text-grey font-medium text-xs">{date.format(postDate, 'DD MMMM YYYY')}</p>
             </div>
-        </div>
+        </Link>
     );
 }
 
