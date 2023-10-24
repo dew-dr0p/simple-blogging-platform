@@ -56,6 +56,7 @@ const CreatePostPage = () => {
                             position: 'center',
                             gravity: 'bottom',
                             offset: {
+                                x: 0,
                                 y: 50
                             },
                             style: {
@@ -68,6 +69,7 @@ const CreatePostPage = () => {
                             position: 'center',
                             gravity: 'bottom',
                             offset: {
+                                x: 0,
                                 y: 50
                             },
                             style: {
@@ -98,6 +100,7 @@ const CreatePostPage = () => {
                             position: 'center',
                             gravity: 'bottom',
                             offset: {
+                                x: 0,
                                 y: 50
                             },
                             style: {
@@ -115,6 +118,7 @@ const CreatePostPage = () => {
                             position: 'center',
                             gravity: 'bottom',
                             offset: {
+                                x: 0,
                                 y: 50
                             },
                             style: {
