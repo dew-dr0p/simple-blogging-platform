@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import MoonLoader from 'react-spinners/MoonLoader'
+import Toastify from 'toastify-js'
+import 'toastify-js/src/toastify.css'
 
 const PostDetailPage = ({ id }: { id: string }) => {
     const router = useRouter()
@@ -27,13 +29,38 @@ const PostDetailPage = ({ id }: { id: string }) => {
     const postDate = isEdited ? selectedPost.updated_at : selectedPost.created_at
 
     const handleDeleteClick = () => {
-        alert("You're about to delete a post")
-        deletePost(selectedPost.id).then((res: any) => {
+        const shouldDelete = confirm("You're about to delete a post")
+        shouldDelete ? deletePost(selectedPost.id).then((res: any) => {
             console.log(res)
-            if (res === 200 ) {
+            if (!res.data.hasOwnProperty('message')) {
+                Toastify({
+                    text: 'Delete unsuccessful',
+                    position: 'center',
+                    gravity: 'bottom',
+                    offset: {
+                        x: 0,
+                        y: 50
+                    },
+                    style: {
+                        background: 'red'
+                    }
+                }).showToast()
+            } else {
+                Toastify({
+                    text: res.data.message,
+                    position: 'center',
+                    gravity: 'bottom',
+                    offset: {
+                        x: 0,
+                        y: 50
+                    },
+                    style: {
+                        background: 'green'
+                    }
+                }).showToast()
                 router.push('/')
             }
-        })
+        }) : ''
     }
 
     const handleEditClick = () => {
