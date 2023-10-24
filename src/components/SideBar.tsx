@@ -12,7 +12,7 @@ const SideBar = () => {
         console.log(posts.length)
         // Fetch posts only if there are no posts
         if (posts.length === 0) {
-            fetchPosts()
+            fetchPosts().then((res: any) => console.log(res))
         }
     }, [fetchPosts, posts])
     

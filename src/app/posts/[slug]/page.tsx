@@ -50,21 +50,21 @@ async function generateAllSlugs() {
 
 async function fetchId (slug: string) {
     const postsParams = await generateAllSlugs()
-    // console.log(postsParams)
     const postParam = postsParams.find((post) => slug === post.slug)
 
     if (postParam) {
-        console.log(postParam.id)
         return postParam.id
     } else {
         // Handle not-found case if necessary
         console.log('Invalid slug provided')
+        throw new Error("Enter valid url");
+        
     }
 }
 
 const DetailPage = async ({ params }:{ params: { slug: string }}) => {
     console.log(params.slug)
-    const postId = await fetchId(params.slug).then(res => res)
+    const postId = await fetchId(params.slug).then(res => res).catch(err => console.log(err))
     console.log(postId)
     
     return (

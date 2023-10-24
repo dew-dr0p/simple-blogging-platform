@@ -2,10 +2,12 @@
 import usePostStore from "@/store/postStore";
 import date from 'date-and-time'
 import DOMPurify from "dompurify";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import MoonLoader from 'react-spinners/MoonLoader'
 
 const PostDetailPage = ({ id }: { id: string }) => {
     const router = useRouter()
@@ -17,18 +19,21 @@ const PostDetailPage = ({ id }: { id: string }) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        id ? fetchPost(id).then(() => setLoading(false)) : console.error('Provide Valid Url')
+        id ? fetchPost(id).then((res: any) => {console.log(res), setLoading(false)}) : console.error('Provide Valid Url')
         console.log(loading)
     }, [fetchPost, id, loading])
 
     const isEdited = selectedPost.updated_at > selectedPost.created_at
     const postDate = isEdited ? selectedPost.updated_at : selectedPost.created_at
 
-    // dangerouslyPasteHTML()
-
     const handleDeleteClick = () => {
         alert("You're about to delete a post")
-        deletePost(selectedPost.id)
+        deletePost(selectedPost.id).then((res: any) => {
+            console.log(res)
+            if (res === 200 ) {
+                router.push('/')
+            }
+        })
     }
 
     const handleEditClick = () => {
@@ -54,6 +59,15 @@ const PostDetailPage = ({ id }: { id: string }) => {
                     {loading ? <Skeleton containerClassName="w-1/3" baseColor="#616161" className="opacity-50" /> : <p><span className="font-bold">By</span> Admin</p>}
                     {loading ? <Skeleton containerClassName="w-1/3" baseColor="#616161" className="opacity-50" /> : <p>{date.format(new Date(postDate), 'DD MMMM YYYY')} {isEdited ? '(edited)' : ''}</p>}
                 </div>
+            </div>
+            <div className="relative w-full min-h-[396px] grid my-5">
+                <MoonLoader loading={loading} className="place-self-center" />
+                {!loading && <Image
+                    src={selectedPost.photo_url}
+                    alt={selectedPost.photo_alt_text}
+                    fill={true}
+                    objectFit="contain"
+                ></Image>}
             </div>
             {!loading ? <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(selectedPost.content)}} className="grid gap-4"></div> : <Skeleton count={15} containerClassName="grid gap-2 w-full" baseColor="#616161" className="opacity-50 max-w-full" height={20}  />}
         </div>

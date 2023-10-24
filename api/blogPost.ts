@@ -19,9 +19,13 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 
         postsRef.child(postId).once('value', (snapshot) => {
           const data = snapshot.val()
+          if (data === null) {
+            return res.status(400).json({ error: 'Invalid Id' })
+          }
           return res.status(200).json(data)
         }, (errorObject) => {
           console.log('The read failed: ' + errorObject.name)
+          return res.status(400).json({ error: 'The read failed' })
         })
       } else {
         // Fetch all posts
@@ -31,6 +35,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
           return res.status(200).json(data);
         }, (errorObject) => {
           console.log('The read failed: ' + errorObject.name);
+          return res.status(400).json({ error: 'The read failed' })
         });
       }
     } else if (req.method === 'POST') {
@@ -71,7 +76,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
           //     return res.status(501).json({ error: 'Failed to add category' })
           //   }
           // })
-          return res.status(201).json({ message: 'Data added successfully', data: newPost });
+          return res.status(201).json({ message: 'Post created successfully', data: newPost });
         }
       });
 
@@ -112,18 +117,14 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
       if (!postId) {
         return res.status(400).json({ error: 'Invalid request data' });
       }
-      const postRef = db.ref('posts/' + postId)
 
-      // postsRef.child(postId).remove((error) => {
-      //   if (error) {
-      //     return res.status(500).json({ error: 'Failed to delete data' });
-      //   } else {
-      //     return res.status(200).json({ message: 'Data deleted successfully' });
-      //   }
-      // });
-      postRef.remove(() => {
-        return res.status(200).json({ message: 'Data deleted successfully' });
-      })
+      postsRef.child(postId).remove((error) => {
+        if (error) {
+          return res.status(500).json({ error: 'Failed to delete data' });
+        } else {
+          return res.status(200).json({ message: 'Data deleted successfully' });
+        }
+      });
     } else {
       return res.status(405).end();
     }

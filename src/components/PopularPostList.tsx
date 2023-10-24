@@ -17,7 +17,7 @@ const PopularPostList = () => {
     return (
         <div className='grid gap-4 h-fit'>
             <SectionHeader Title={'Popular Posts'} />
-            <FadeLoader loading={displayedPosts.current?.length === 0} color='#616161' className='justify-self-center my-10' />
+            <FadeLoader loading={displayedPosts.current == null || displayedPosts.current?.length == 0} color='#616161' className='justify-self-center my-10' />
             {displayedPosts.current?.map((post: any, index: number) => (
                 <PopularPostCard key={index} title={post.title} imageUrl={post.photo_url} imageAlt={post.photo_alt_text} postDate={new Date(post.created_at)} />
             ))}

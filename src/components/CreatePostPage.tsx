@@ -1,18 +1,22 @@
 'use client'
 import CreatePostInput from '@/components/CreatePostInput'
-import { createPost, editPost } from '@/utils/utils';
+// import { createPost, editPost } from '@/utils/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import usePostStore from '@/store/postStore';
+import Toastify from 'toastify-js'
+import 'toastify-js/src/toastify.css'
+import BeatLoader from 'react-spinners/BeatLoader'
 
 const CreatePostPage = () => {
     const searchParams = useSearchParams()
     const router = useRouter()
     const postId = searchParams.get('id')
-    postId ? console.log(postId) : ''
 
     const fetchPost = usePostStore((state: any) => state.fetchPost)
     const selectedPost = usePostStore((state: any) => state.selectedPost)
+    const createPost = usePostStore((state: any) => state.createPost)
+    const editPost = usePostStore((state: any) => state.editPost)
 
     // Generate slug from title
     const slug = selectedPost.title?.replaceAll(' ', '_').replaceAll(':', '').toLowerCase()
@@ -23,8 +27,11 @@ const CreatePostPage = () => {
     const [content, setContent] = useState('')
     const [categories, setCategory] = useState([])
 
+    const [loading, setLoading] = useState(false)
+
     const handleSubmit = (e: FormEvent) => {
         e?.preventDefault()
+        setLoading(true)
         console.log(title)
         console.log(image_url)
         console.log(image_alt)
@@ -40,14 +47,41 @@ const CreatePostPage = () => {
                  content: content,
                  categories: categories,
                  created_at: selectedPost.created_at
-                }).then(() => {
-                    setTitle('')
-                    setImage_Alt('')
-                    setImage_Url('')
-                    setContent('')
-                    setCategory([])
-                    router.push(`${slug}`)
-                }).catch(err => console.log(err))
+                }).then((res: any) => {
+                    console.log(res)
+                    setLoading(false)
+                    if (res.data.hasOwnProperty('error')) {
+                        Toastify({
+                            text: res.data.error,
+                            position: 'center',
+                            gravity: 'bottom',
+                            offset: {
+                                y: 50
+                            },
+                            style: {
+                                background: 'red'
+                            }
+                        }).showToast()
+                    } else {
+                        setTitle('')
+                        setImage_Alt('')
+                        setImage_Url('')
+                        setContent('')
+                        setCategory([])
+                        Toastify({
+                            text: res.data.message,
+                            position: 'center',
+                            gravity: 'bottom',
+                            offset: {
+                                y: 50
+                            },
+                            style: {
+                                background: 'green'
+                            }
+                        }).showToast()
+                        router.push(`${slug}`)
+                    }
+                })
             } else {
                 createPost({
                  title: title,
@@ -55,13 +89,41 @@ const CreatePostPage = () => {
                  alt_text: image_alt,
                  content: content,
                  categories: categories
-                }).then(() => {
-                    setTitle('')
-                    setImage_Alt('')
-                    setImage_Url('')
-                    setContent('')
-                    setCategory([])
-                }).catch(err => console.log(err))
+                }).then((res: any) => {
+                    console.log(res)
+                    setLoading(false)
+                    if (res.data.hasOwnProperty('error')) {
+                        Toastify({
+                            text: res.data.error,
+                            position: 'center',
+                            gravity: 'bottom',
+                            offset: {
+                                y: 50
+                            },
+                            style: {
+                                background: 'red'
+                            }
+                        }).showToast()
+                    } else {
+                        setTitle('')
+                        setImage_Alt('')
+                        setImage_Url('')
+                        setContent('')
+                        setCategory([])
+                        Toastify({
+                            text: res.data.message,
+                            position: 'center',
+                            gravity: 'bottom',
+                            offset: {
+                                y: 50
+                            },
+                            style: {
+                                background: 'green'
+                            }
+                        }).showToast()
+                        router.push('/')
+                    }
+                })
             }
         } catch(err) {
             console.log(err)
@@ -81,25 +143,30 @@ const CreatePostPage = () => {
         setContent(value)
     }
     function handleCategory(e: any) {
-        setCategory((e.target.value).split(', '))
+        setCategory((e.target.value).split(','))
     }
 
     useEffect(() => {
-        postId ? fetchPost(postId) : ''
+        postId ? fetchPost(postId).then((res: any) => console.log(res)) : ''
     }, [fetchPost, postId])
 
     useEffect(() => {
         console.log('selected post effect ran')
-        console.log(selectedPost)
-        setTitle(selectedPost.title)
-        setImage_Alt(selectedPost.photo_alt_text)
-        setImage_Url(selectedPost.photo_url)
-        setContent(selectedPost.content)
-        setCategory(selectedPost.categories)
-    }, [selectedPost])
+        console.log(selectedPost, postId)
+        if (postId) {
+            setTitle(selectedPost.title)
+            setImage_Alt(selectedPost.photo_alt_text)
+            setImage_Url(selectedPost.photo_url)
+            setContent(selectedPost.content)
+            setCategory(selectedPost.categories)
+        }
+    }, [selectedPost, postId])
 
     return (
-        <div className='grid gap-5 col-span-8 h-fit'>
+        <div className='grid gap-5 relative col-span-8 h-fit'>
+            {loading && <div className="absolute z-50 w-full h-full flex items-center justify-center bg-white bg-opacity-75">
+                <BeatLoader color='#02A28F' />
+            </div>}
             <h2 className="text-2xl md:text-3xl font-bold">Create your post today</h2>
             <form onSubmit={handleSubmit} className="grid gap-6">
                 <CreatePostInput label="Title" type="text" value={title} placeholder='Enter title of post' onChange={handleTitle} />

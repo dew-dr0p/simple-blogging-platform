@@ -23,10 +23,10 @@ const PageHeader = () => {
                 </nav>
                 <Image src={NavIcon} alt="Navigation Menu Icon" className="lg:hidden" />
             </div>
-            <div className="absolute bg-primary w-full top-0 grid lg:hidden">
+            {/* <div className="absolute bg-primary w-full top-0 grid lg:hidden">
                 <Image src={NavClose} alt="Close Navigation Menu Icon" />
                 Enter
-            </div>
+            </div> */}
         </header>
     );
 }
