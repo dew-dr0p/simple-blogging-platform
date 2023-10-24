@@ -63,11 +63,6 @@ const CreatePostPage = () => {
                             }
                         }).showToast()
                     } else {
-                        setTitle('')
-                        setImage_Alt('')
-                        setImage_Url('')
-                        setContent('')
-                        setCategory([])
                         Toastify({
                             text: res.data.message,
                             position: 'center',
@@ -79,6 +74,11 @@ const CreatePostPage = () => {
                                 background: 'green'
                             }
                         }).showToast()
+                        setTitle('')
+                        setImage_Alt('')
+                        setImage_Url('')
+                        setContent('')
+                        setCategory([])
                         router.push(`${slug}`)
                     }
                 })
@@ -130,6 +130,10 @@ const CreatePostPage = () => {
         }
     }
 
+    const handleCancelEdit = () => {
+        router.push(`${slug}`)
+    }
+
     function handleTitle(e: any) {
         setTitle(e.target.value)
     }
@@ -176,7 +180,10 @@ const CreatePostPage = () => {
                 </div>
                 <CreatePostInput label="Post" type="textarea" value={content} onChange={handleContent} />
                 <CreatePostInput label='Category' type='text' value={categories} placeholder='Seperate values with a comma ", "' onChange={handleCategory} />
-                <button type='submit' className='bg-primary text-white justify-self-center justify-center py-3 px-6 mt-4 shadow-small text-lg md:text-xl font-bold rounded-md md:rounded-[0.625rem]'>Submit</button>
+                <div className='flex gap-5 justify-center'>
+                    {postId && <button type='button' onClick={handleCancelEdit} className='bg-primary text-white justify-self-center justify-center py-3 px-6 mt-4 shadow-small text-lg md:text-xl font-bold rounded-md md:rounded-[0.625rem]'>Cancel</button>}
+                    <button type='submit' className='bg-primary text-white justify-self-center justify-center py-3 px-6 mt-4 shadow-small text-lg md:text-xl font-bold rounded-md md:rounded-[0.625rem]'>Submit</button>
+                </div>
             </form>
         </div>
     );

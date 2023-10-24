@@ -19,7 +19,7 @@ const PopularPostList = () => {
             <SectionHeader Title={'Popular Posts'} />
             <FadeLoader loading={displayedPosts.current == null || displayedPosts.current?.length == 0} color='#616161' className='justify-self-center my-10' />
             {displayedPosts.current?.map((post: any, index: number) => (
-                <PopularPostCard key={index} title={post.title} imageUrl={post.photo_url} imageAlt={post.photo_alt_text} postDate={new Date(post.created_at)} />
+                <PopularPostCard key={index} title={post.title} imageUrl={post.photo_url} imageAlt={post.photo_alt_text} postDate={new Date((post.created_at < post.updated_at) ? post.updated_at : post.created_at)} isEdited={post.created_at < post.updated_at} />
             ))}
 
         </div>

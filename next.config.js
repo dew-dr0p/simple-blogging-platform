@@ -8,6 +8,18 @@ const nextConfig = {
             port: '',
             pathname: '/featured/**',
           },
+          {
+            protocol: 'http',
+            hostname: '**',
+            port: '',
+            pathname: '**',
+          },
+          {
+            protocol: 'https',
+            hostname: '**',
+            port: '',
+            pathname: '**',
+          },
         ],
       },
 }

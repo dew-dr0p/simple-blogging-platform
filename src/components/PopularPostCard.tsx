@@ -3,11 +3,13 @@ import date from 'date-and-time'
 import Link from "next/link";
 
 const PopularPostCard = ({
+        isEdited,
         title,
         imageUrl,
         imageAlt,
         postDate,
     }:{
+        isEdited: boolean,
         title: string,
         imageUrl: string,
         imageAlt: string,
@@ -32,7 +34,7 @@ const PopularPostCard = ({
             </div>
             <div className="grid gap-2 col-span-3 h-fit">
                 <h6 className="font-bold text-sm">{title}</h6>
-                <p className="text-grey font-medium text-xs">{date.format(postDate, 'DD MMMM YYYY')}</p>
+                <p className="text-grey font-medium text-xs">{date.format(postDate, 'DD MMMM YYYY')} {isEdited ? '(edited)' : ''}</p>
             </div>
         </Link>
     );

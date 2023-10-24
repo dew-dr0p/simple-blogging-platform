@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 const PostCard = ({
-        id,
+        isEdited,
         title,
         imageUrl,
         imageAlt,
@@ -12,7 +12,7 @@ const PostCard = ({
         postDate,
         postContent,
     }:{
-        id: string
+        isEdited: boolean,
         title: string,
         imageUrl: string,
         imageAlt: string,
@@ -55,7 +55,7 @@ const PostCard = ({
                     <p className="font-medium text-grey"><span className="font-bold">By</span> Admin</p>
                 </div>
                 <p>{snippet.current}</p>
-                <p className="text-grey font-medium">{date.format(postDate, 'DD MMMM YYYY')}</p>
+                <p className="text-grey font-medium">{date.format(postDate, 'DD MMMM YYYY')} {isEdited ? '(edited)' : ''}</p>
             </div>
         </Link>
     );
