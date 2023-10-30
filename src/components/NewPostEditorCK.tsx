@@ -24,7 +24,7 @@ const NewPostEditorCK = ({initialContent, onChange}: {initialContent?: string, o
                     const data = editor.getData()
                     handleContentChange(data)
                     // onChange(data)
-                    console.log( { event, editor, data } );
+                    // console.log( { event, editor, data } );
                 } }
             />
         </div>

@@ -85,6 +85,7 @@ class Editor extends ClassicEditor {
 				'fontFamily',
 				'fontBackgroundColor',
 				'fontColor',
+				'|',
 				'bold',
 				'italic',
 				'link',
@@ -101,6 +102,7 @@ class Editor extends ClassicEditor {
 				'mediaEmbed',
 				'undo',
 				'redo',
+				'|',
 				'htmlEmbed',
 				'sourceEditing',
 				'codeBlock'

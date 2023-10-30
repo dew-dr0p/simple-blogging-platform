@@ -1,3 +1,6 @@
+// layout.tsx
+// This is the layout file for this application, it sets the structure and it's also where most of the default data is set like the fonts and metadata.
+// This file also contains the Header and Footer component
 import './globals.css'
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'

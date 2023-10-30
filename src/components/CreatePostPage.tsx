@@ -1,6 +1,7 @@
+// CreatePostPage component
+// This is the component that handles creating a post, it also handles editing an already created post, if the id is passed alongside the url as a query when entering the url
 'use client'
 import CreatePostInput from '@/components/CreatePostInput'
-// import { createPost, editPost } from '@/utils/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 import usePostStore from '@/store/postStore';
@@ -178,7 +179,7 @@ const CreatePostPage = () => {
             <h2 className="text-2xl md:text-3xl font-bold">Create your post today</h2>
             <form onSubmit={handleSubmit} className="grid gap-6">
                 <CreatePostInput label="Title" type="text" value={title} placeholder='Enter title of post' onChange={handleTitle} />
-                <div className='grid grid-flow-col gap-5'>
+                <div className='grid lg:grid-flow-col gap-5'>
                     <CreatePostInput label='Image (url)' type='text' value={image_url} placeholder='Enter link to Image resource' onChange={handleImageUrl} />
                     <CreatePostInput label='Image (alt text)' type='text' value={image_alt} placeholder='Enter Alternate text for Image' onChange={handleImageAlt} />
                 </div>

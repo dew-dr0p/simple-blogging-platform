@@ -31,7 +31,6 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
         // Fetch all posts
         postsRef.once('value', (snapshot) => {
           const data = snapshot.val();
-          // console.log(data)
           return res.status(200).json(data);
         }, (errorObject) => {
           console.log('The read failed: ' + errorObject.name);

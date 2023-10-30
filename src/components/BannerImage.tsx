@@ -1,6 +1,9 @@
+// BannerImage Component
+// This component handles the display of the Banner Image at the hompeage of the app.
+// It takes in the imageUrl, imageAlt, category, and title of the post to be displayed in the homepage as props, and handles displaying the post            
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
+
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 

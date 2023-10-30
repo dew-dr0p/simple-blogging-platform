@@ -1,8 +1,10 @@
+// This is the HomePage component
+// It handles the display of posts on the main page, and at the same time also handles the UI for pagination
 'use client'
 import BannerImage from '@/components/BannerImage'
 import PostList from '@/components/PostList'
 import usePostStore from '@/store/postStore';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import FadeLoader from 'react-spinners/FadeLoader'
 
 const BlogApp = () => {

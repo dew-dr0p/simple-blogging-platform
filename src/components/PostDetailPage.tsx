@@ -87,7 +87,7 @@ const PostDetailPage = ({ id }: { id: string }) => {
                     {loading || !postDate ? <Skeleton containerClassName="w-1/3" baseColor="#616161" className="opacity-50" /> : <p>{date.format(new Date(postDate), 'DD MMMM YYYY')} {isEdited ? '(edited)' : ''}</p>}
                 </div>
             </div>
-            <div className="relative w-full min-h-[396px] grid my-5">
+            <div className="relative w-full min-h-[50vw] lg:min-h-[30vw] grid my-5">
                 <MoonLoader loading={loading || !selectedPost.photo_url} className="place-self-center" />
                 {(!loading && selectedPost.photo_url) && <Image
                     src={selectedPost.photo_url}

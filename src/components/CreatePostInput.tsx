@@ -1,9 +1,12 @@
+// CreatePostInput component
+// This is the component that handles the input element on the create post, it also handles the rich text editor for the post.
 'use client'
 import { ChangeEvent } from "react";
 import dynamic from "next/dynamic";
 
 // Dynamic import CKEditor, ensuring it's only used on the client-side
 const NewPostEditorCK = dynamic(() => import('./NewPostEditorCK'), { ssr: false})
+
 // const PostTextEditor = dynamic(() => import('./PostTextEditor'), { ssr: false})
 // const DualModeEditor = dynamic(() => import('./DualModeEditor'), { ssr: false})
 
@@ -23,6 +26,7 @@ const CreatePostInput = ({ label, type, value, placeholder, onChange }: { label:
             {type === 'textarea' && 
                 // <PostTextEditor initialContent={value as string} onChange={handleContentInput} />
                 // <DualModeEditor initialContent={value as string} onChange={handleContentInput} />
+
                 <NewPostEditorCK initialContent={value as string} onChange={handleContentInput} />
             }
         </div>

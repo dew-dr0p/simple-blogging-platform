@@ -1,3 +1,5 @@
+// PostStore.ts
+// This is the zustand store for the entire application, it handles storing of posts and also has actions for fetching, deleting, creating and editing post.
 import axios from "axios";
 import { create } from "zustand";
 
