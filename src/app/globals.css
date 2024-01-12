@@ -8,7 +8,7 @@ body {
 }
 
 .container-blog {
-  @apply container px-5 md:px-9 m-auto
+  @apply w-full md:max-w-3xl lg:max-w-5xl px-5 md:px-9 m-auto
 }
 
 .shadow-small {

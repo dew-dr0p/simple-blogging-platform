@@ -7,8 +7,9 @@ const usePostStore = create((set) => ({
     posts: [],
     selectedPost: {},
     currentPage: 1, // Initial Page is 1
-    setCurrentPage: (page: number) => set({ currentPage: page}),
-    setSelectedPost: (post: object) => set({ selectedPost: post}),
+    searchResults: [],
+    setCurrentPage: (page: number) => set({ currentPage: page }),
+    setSelectedPost: (post: object) => set({ selectedPost: post }),
     fetchPosts: async () => {
         try {
             set({ selectedPost: {} })
@@ -74,6 +75,20 @@ const usePostStore = create((set) => ({
         } catch (error) {
             console.error('Error deleting post: ', error)
         }
+    },
+    searchPosts: (searchTerm: string) => {
+        set({ selectedPost: {} })
+        set((state: any) => ({ 
+            searchResults: state.posts.filter((post: any) => {
+                // convert post content to text to enable searching through it.
+                const temporaryDiv = document.createElement('div')
+                temporaryDiv.innerHTML = post.content
+                const postContent = temporaryDiv.innerText
+                return post.categories.some((category: any) => category.toLowerCase().includes(searchTerm.toLowerCase())) || post.title.toLowerCase().includes(searchTerm.toLowerCase()) || postContent.toLowerCase().includes(searchTerm.toLowerCase())
+            })
+            // searchResults: state.posts.filter((post: any) => post.categories.some((category: any) => category.toLowerCase().includes(searchTerm.toLowerCase())))
+        }))
+        set((state: any) => ({ selectedPost: state.searchResults[0] }))
     }
 }))
 
